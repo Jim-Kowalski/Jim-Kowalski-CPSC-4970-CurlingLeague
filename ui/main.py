@@ -1,5 +1,6 @@
 import sys
-from PyQt5 import uic, QtWidgets
+from PyQt5 import QtWidgets
+from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
 from model.league import League
@@ -10,6 +11,7 @@ from ui.league_editor import LeagueEditorWindow
 
 UI_MainWindow, QtBaseWindow = uic.loadUiType("main.ui")
 
+
 class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
 
     def __init__(self, parent=None):
@@ -18,24 +20,24 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
 
         self.db = LeagueDatabase.instance()
 
-        # setup the table widget
-        super().initialize_table_widget(self.league_table_widget,["OID", "League Name", "Number of Teams"])
+        # set up the table widget
+        super().initialize_table_widget(self.league_table_widget, ["OID", "League Name", "Number of Teams"])
 
         # Connect the button clicked signals to slots.
         self.add_league_button.clicked.connect(self.add_league_button_clicked)
         self.edit_league_button.clicked.connect(self.edit_league_button_clicked)
         self.delete_league_button.clicked.connect(self.delete_league_button_clicked)
 
-        #Connect the menu item triggered signals to slots
+        # Connect the menu item triggered signals to slots
         self.quit_menu_item.triggered.connect(self.quit_menu_item_triggered)
         self.save_menu_item.triggered.connect(self.save_menu_item_triggered)
         self.load_menu_item.triggered.connect(self.load_menu_item_triggered)
 
-        #On __init__ set the selected row to the first row in the grid
+        # On __init__ set the selected row to the first row in the grid
         if self.league_table_widget.rowCount() > 0:
             self.league_table_widget.setCurrentCell(0, 0)
 
-    #--------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     # QPushbutton slot methods
     # --------------------------------------------------------------------------
     def add_league_button_clicked(self):
@@ -55,7 +57,7 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
             # league to the database.
             if not league:
 
-                # Find a free oid from the databse
+                # Find a free oid from the database
                 new_oid = self.db.find_free_league_oid()
 
                 # instantiate a new league using the free oid and the
@@ -80,7 +82,8 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
                 # widget and set focus to it.
                 dialog = QMessageBox(QMessageBox.Icon.Critical,
                                      "Error! Duplicate league!",
-                                     f"There is already a league named: '{league_name}'. Please pick a unique league name! ",
+                                     f"There is already a league named: '{league_name}'. Please pick a unique league "
+                                     f"name! ",
                                      QMessageBox.StandardButton.Ok)
                 result = dialog.exec()
                 self.league_name_line_edit.selectAll()
@@ -90,7 +93,8 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
             # this should not happen since we are finding an OID
             # however, if for some odd reason it does occur, it is
             # being handled.
-            self.show_duplicate_OID_message_box(f"League OID '{self.oid_spin_box.value()}' already used. Please choose a different OID.")
+            self.show_duplicate_oid_message_box(
+                f"League OID '{self.oid_spin_box.value()}' already used. Please choose a different OID.")
 
     def on_league_editor_closed(self):
         self.refresh_league_list()
@@ -104,7 +108,6 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
             league_editor_window.setWindowModality(Qt.ApplicationModal)
             league_editor_window.closed.connect(self.on_league_editor_closed)
             league_editor_window.show()
-
 
     def delete_league_button_clicked(self):
         """
@@ -133,7 +136,6 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
             else:
                 print("No pressed")
 
-
     def get_league_from_selected_row(self):
         selected_items = self.league_table_widget.selectedItems()
         if selected_items:
@@ -146,7 +148,7 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
                 return league
         return None
 
-    def show_duplicate_OID_message_box(self, text):
+    def show_duplicate_oid_message_box(self, text):
         """
         This function instantiates a QMessageBox displaying
         that there is a duplicate OID.
@@ -158,7 +160,6 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
                              text,
                              QMessageBox.StandardButton.Ok)
         result = dialog.exec()
-
 
     def refresh_league_list(self):
         """
@@ -173,7 +174,7 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
         self.league_table_widget.sortItems(0)
         self.league_table_widget.resizeColumnsToContents()  # Resizes the table to its contents
 
-    #--------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     # MENU Item Trigger slots
     # --------------------------------------------------------------------------
     def quit_menu_item_triggered(self):
@@ -190,6 +191,7 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
                 if not file_name.endswith(".pkl"):
                     file_name += ".pkl"
                 self.db.save(file_name)
+
     def load_menu_item_triggered(self):
         file_dialog = QFileDialog()
         file_dialog.setNameFilter("Pickle files (*.pkl)")
@@ -199,6 +201,7 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
             self.db.load(file_name)
             self.db = LeagueDatabase.instance()
             self.refresh_league_list()
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
