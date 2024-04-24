@@ -1,3 +1,4 @@
+import os
 import sys
 from PyQt5 import QtWidgets
 from PyQt5 import uic
@@ -9,7 +10,8 @@ from model.custom_exceptions import DuplicateOid
 from ui.ui_base import UIBase
 from ui.league_editor import LeagueEditorWindow
 
-UI_MainWindow, QtBaseWindow = uic.loadUiType("main.ui")
+
+UI_MainWindow, QtBaseWindow = uic.loadUiType("ui/main.ui")
 
 
 class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):

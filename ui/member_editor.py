@@ -5,7 +5,7 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMessageBox
 from ui.ui_base import UIBase
 
-UI_MemberEditorWindow, QtBaseWindow = uic.loadUiType("member_editor.ui")
+UI_MemberEditorWindow, QtBaseWindow = uic.loadUiType("ui/member_editor.ui")
 
 
 

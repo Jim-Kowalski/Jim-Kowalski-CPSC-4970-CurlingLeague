@@ -7,7 +7,7 @@ from PyQt5.QtCore import pyqtSignal, Qt
 from ui.member_editor import MemberEditorWindow
 from ui.ui_base import UIBase
 
-UI_LeagueEditorWindow, QtBaseWindow = uic.loadUiType("league_editor.ui")
+UI_LeagueEditorWindow, QtBaseWindow = uic.loadUiType("ui/league_editor.ui")
 
 
 class LeagueEditorWindow(UI_LeagueEditorWindow, QtBaseWindow, UIBase):

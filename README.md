@@ -1,1 +1,1 @@
-This is a test
+The Curling League Manager
