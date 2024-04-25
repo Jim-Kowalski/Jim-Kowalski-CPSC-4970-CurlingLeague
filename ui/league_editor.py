@@ -1,4 +1,7 @@
 import sys
+
+from PyQt5.QtGui import QIcon
+
 from model.league import League
 from model.team import Team
 from PyQt5 import uic, QtWidgets
@@ -20,7 +23,7 @@ class LeagueEditorWindow(UI_LeagueEditorWindow, QtBaseWindow, UIBase):
     def __init__(self, league, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon('icons/curling.png'))
         self._league = league
 
         if league:
@@ -171,10 +174,3 @@ class LeagueEditorWindow(UI_LeagueEditorWindow, QtBaseWindow, UIBase):
         self.team_table_widget.resizeColumnsToContents()  # Resizes the table to its contents
 
 
-if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    _league = League(1, "MyLeague")
-
-    window = LeagueEditorWindow(_league)
-    window.show()
-    sys.exit(app.exec_())

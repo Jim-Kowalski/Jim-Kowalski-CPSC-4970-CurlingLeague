@@ -1,3 +1,5 @@
+from PyQt5.QtGui import QIcon
+
 from model.custom_exceptions import DuplicateEmail
 from model.team_member import TeamMember
 from PyQt5 import uic
@@ -21,7 +23,7 @@ class MemberEditorWindow(UI_MemberEditorWindow, QtBaseWindow, UIBase):
     def __init__(self, team, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon('icons/curling.png'))
         self._team = team
 
         if team:

@@ -3,6 +3,7 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
 from model.league import League
 from model.league_database import LeagueDatabase
@@ -19,6 +20,7 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        self.setWindowIcon(QIcon('icons/curling.png'))
 
         self.db = LeagueDatabase.instance()
 
@@ -204,9 +206,3 @@ class MainWindow(UI_MainWindow, QtBaseWindow, UIBase):
             self.db = LeagueDatabase.instance()
             self.refresh_league_list()
 
-
-if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
