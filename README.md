@@ -18,6 +18,17 @@ To execute the Curling League Manager application, follow these steps:
 3. **Install Dependencies**: Ensure all required dependencies are installed. They will be listed in the requirements.txt file.
 4. **Run the Application**: Execute the CurlingLeague.py file.
 
+## Screenshots
+
+### Main Window
+![Main Window](screenshots/main.png)
+
+### League Editor
+![League Creation](screenshots/teams.png)
+
+### Member Editor
+![League Creation](screenshots/members.png)
+
 
 ## Implementation Details
 
